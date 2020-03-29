@@ -27,7 +27,7 @@ class SREMPyLandsat():
     modes = ['landsat-auto', 'landsat-manual', 'landsat-usgs-utils']
     modes_data = {'landsat-manual':{'band':'','metadata':'','solar_azimuth':'','sensor_azimuth':'','solar_zenith':'','sensor_zenith':'','angles_coef':0.01},
                   'landsat-auto':{'band':'','metadata':'','temp_dir':''},
-                  'landsat-usgs-utils': {'band': '', 'metadata': '', 'angles_file':'', 'usgs_util_path':'', 'temp_dir': ''}}
+                  'landsat-usgs-utils': {'band': '', 'metadata': '', 'angles_file':'', 'usgs_util_path':'', 'temp_dir': '', 'cygwin_bash_exe_path': ''}}
 
     mode = None
 
@@ -112,8 +112,12 @@ class SREMPyLandsat():
             band_bumber = self.band_metadata['number']
 
             # Generate angles for band
-            cmd = '%s %s BOTH 1 -b %s' % (util_path, angles_path, band_bumber)
-            os.chdir(self.data['temp_dir'])
+            if self.data['cygwin_bash_exe_path'] == None:
+                cmd = '%s %s BOTH 1 -b %s' % (util_path, angles_path, band_bumber)
+                os.chdir(self.data['temp_dir'])
+            else:
+                cmd = '%s --login -c \"cd %s && %s %s BOTH 1 -b %s\"' % (self.data['cygwin_bash_exe_path'], self.data['temp_dir'], util_path, angles_path, band_bumber)
+            
             os.system(cmd)
 
             solar_path = os.path.join(self.data['temp_dir'],
