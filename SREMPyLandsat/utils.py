@@ -18,8 +18,10 @@ def process_full_landsat_dataset_with_usgs_util(metadata_file,
                                                 angles_file,
                                                 usgs_util_path,
                                                 temp_dir,
-                                                output_dir):
-
+                                                output_dir,
+                                                cygwin_bash_exe_path=None):
+                                                
+    
     metadata_reader = LandsatMetadataReader(metadata_file)
 
     if metadata_reader.metadata['SPACECRAFT_ID'] == 'LANDSAT_8':
@@ -46,7 +48,8 @@ def process_full_landsat_dataset_with_usgs_util(metadata_file,
                 'metadata': metadata_file,
                 'angles_file': angles_file,
                 'usgs_util_path': usgs_util_path,
-                'temp_dir':temp_dir
+                'temp_dir':temp_dir,
+                'cygwin_bash_exe_path': cygwin_bash_exe_path
                 }
 
         srem.set_data(data)
@@ -58,5 +61,3 @@ def process_full_landsat_dataset_with_usgs_util(metadata_file,
 
         srem.save_array_as_gtiff(sr,
                                  os.path.join(output_dir,output_name))
-
-
