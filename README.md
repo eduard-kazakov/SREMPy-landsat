@@ -41,7 +41,7 @@ data = {'band':'../LC08_L1TP_183021_20180530_20180614_01_T1_B3.TIF',
         'angles_file':'../LC08_L1TP_183021_20180530_20180614_01_T1_ANG.txt',
         'usgs_util_path':'../software/l8_angles/l8_angles',
         'temp_dir':'../temp_dir',
-        'cygwin_bash_exe_path'=None}
+        'cygwin_bash_exe_path':None}
 
 srem.set_data(data)
 sr = srem.get_srem_surface_reflectance_as_array()
