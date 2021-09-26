@@ -10,7 +10,10 @@
 #
 #******************************************************************************
 
-import gdal
+try:
+    import gdal
+except:
+    from osgeo import gdal
 import numpy as np
 from .LandsatMetadataReader import LandsatMetadataReader
 from .CalibrateLandsatBand import CalibrateLandsatBand
